@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Mechanic Service</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+
+    <section class="one">
+        <h1>Our Location</h1>
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.500109830409!2d144.9560545153169!3d-37.81720917975133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce7e33!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1601594526042!5m2!1sen!2sus"
+                width="600" 
+                height="450" 
+                style="border:0;" 
+                loading="fast">
+            </iframe>
+        </div>
+    </section>
+
+    <section class="two">
+        <div class="container">
+            <h1>Book Appointment</h1>
+            <form id="appointment-form" onsubmit="return handleBooking(event)">
+                <div class="form-group">
+                    <label for="customer-name">Customer Name:</label>
+                    <input type="text" id="customer-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile-number">Mobile Number:</label>
+                    <input type="tel" id="mobile-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="package">Select Package:</label>
+                    <select id="package" required>
+                        <option value="">Select a package</option>
+                        <option value="supra">Engine Diagnostics</option>
+                        <option value="turbo">Brake Repairs</option>
+                        <option value="hybrid">Oil Changes</option>
+                        <option value="hybrid">Battery Replacement</option>
+                        <option value="hybrid">Transmission Repair</option>
+                        <option value="hybrid">Tyre repairs</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="car-make">Car Make:</label>
+                    <input type="text" id="car-make" required>
+                </div>
+                <div class="form-group">
+                    <label for="car-model">Car Model:</label>
+                    <input type="text" id="car-model" required>
+                </div>
+                <button type="submit">Book Appointment</button>
+                <p id="message"></p>
+            </form>
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
+        </div>
+ <!-- Popup -->
+ <div id="popup">
+    <div class="popup-content">
+        <div class="tick-icon">
+            <span class="circle">&#10003;</span> <!-- Tick icon inside a circle -->
+        </div>
+        <h3>Thank You!</h3>
+        <p id="popup-message">Your appointment is booked successfully.</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+</div>
+
+</section>
+<style>
+    /* General Popup Styles */
+    #popup {
+        display: none; /* Hidden by default */
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Black background with transparency */
+        z-index: 1000; /* On top of other content */
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-content {
+        background-color: #222;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        color: white;
+    }
+
+    .tick-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px; /* Space between icon and text */
+    }
+
+    .circle {
+        width: 60px; /* Diameter of the circle */
+        height: 60px; /* Diameter of the circle */
+        background-color: #fff; /* White background */
+        border-radius: 50%; /* Makes it a circle */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #28a745; /* Green color for tick */
+        font-size: 30px; /* Size of tick icon */
+    }
+
+    .popup-content h3 {
+        margin: 0 0 10px;
+    }
+</style>
+    
+        <script>
+            function handleBooking(event) {
+                event.preventDefault(); // Prevent form submission
+    
+                // Gather input values
+                const customerName = document.getElementById('customer-name').value;
+                const mobileNumber = document.getElementById('mobile-number').value;
+                const address = document.getElementById('address').value;
+                const packageSelected = document.getElementById('package').value;
+                const carMake = document.getElementById('car-make').value;
+                const carModel = document.getElementById('car-model').value;
+    
+                // Simple validation
+                if (!customerName || !mobileNumber || !address || !packageSelected || !carMake || !carModel) {
+                    document.getElementById('message').textContent = 'Please fill in all required fields.';
+                    return;
+                }
+    
+                // Show popup confirmation
+                document.getElementById('popup-message').textContent = `Your appointment is booked successfully!`;
+                document.getElementById('popup').style.display = 'block'; // Show popup
+    
+                // Clear the form (optional)
+                document.getElementById('appointment-form').reset();
+            }
+    
+            function closePopup() {
+                document.getElementById('popup').style.display = 'none'; // Hide popup
+            }
+        </script>
+    </section>
+    
+    
+       
+    </section>
+    
+
+</body>
+</html>
+<style>
+    /* CSS to style the map container */
+    .map-container {
+        position: relative;
+        width: 1200px; /* Fixed width for a rectangular shape */
+        height: 400px; /* Increased height for a larger map */
+        overflow: hidden;
+        margin: 20px auto; /* Center the map */
+        border: 2px solid #ccc; /* Optional: Add a border to the map */
+        border-radius: 8px; /* Optional: Rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+    }
+
+    .map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Additional styles for the appointment section */
+    .two {
+        padding: 20px;
+        background-color: #000000; /* Dark background for the appointment section */
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-top: 20px; /* Margin between sections */
+        width: 100%; /* Full width */
+        max-width: 800px; /* Increased max-width for the appointment container */
+        margin-left: auto; /* Center the container */
+        margin-right: auto; /* Center the container */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: white; /* Change label color to white */
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #444; /* Dark background for input fields */
+        color: white; /* Change input text color to white */
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #218838;
+    }
+
+    #message {
+        text-align: center;
+        color: red;
+        margin-top: 10px;
+    }
+
+    p {
+        text-align: center;
+        color: white; /* Change paragraph text color to white */
+    }
+
+    a {
+        color: #007bff; /* Link color */
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* General body styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: black; /* Change background color to black */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        min-height: 100vh;
+        color: white; /* Change default text color to white */
+    }
+
+    .container {
+        background: #1c1c1c; /* Darker background for the container */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Full width */
+        max-width: 800px; /* Increased max-width for the container */
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: white; /* Change header color to white */
+    }
+</style>
